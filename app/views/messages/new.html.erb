@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- bootstrap awesome font 호환 문제로 추가 -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <% stylesheet_link_tag "music" %>
+  <title>Muzify - music station</title>
+
+</head>
+
+<body>
+
+
+<nav class="navbar-default">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <%= link_to developers_new_path do %><%= image_tag(("뮤지파이4.png"), :class => 'logo', :alt => 'Lattes theme logo') %>
+        <!--        <img class="logo" width=250px; height=200px;-->
+        <!--                                  src="img/뮤지파이4.png"-->
+        <!--                                  alt="Lattes theme logo">-->
+      <% end %>
+    </div>
+
+    <div>
+      <ul class="nav">
+
+        <li>
+          <%= link_to "Contemporary", index_index_path, class: 'page-scroll' %>
+
+          <!--          <a class="page-scroll" href="index.html#contemporary">Contemporary</a>-->
+        </li>
+        <li>
+          <%= link_to "Contact", developers_new_path(:anchor => 'contact'), class: 'page-scroll' %>
+
+        </li>
+        <li>
+          <%= link_to "Memory", new_message_path, class: 'page-selected' %>
+        </li>
+
+        <li>
+          <%= link_to "About", developers_new_path, class: 'page-scroll' %>
+        </li>
+
+
+      </ul>
+    </div>
+
+  </div>
+
+</nav>
+
+<div class="content">
+
+
+  <section id="memory">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>내가 그때 들었던 노래</h2>
+            <p>과거의 추억이 담긴 사진들과 함께 노래를 다시 들어보세요.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <table class="memory">
+        <tr>
+
+          <th>날짜</th>
+          <th>그날의 나</th>
+          <th>노래</th>
+          <th>지금 나의 느낌 달기</th>
+
+        </tr>
+
+
+        <tr>
+
+          <td><h3>2018.12.25</h3></td>
+          <td>오늘은 크리스마스 파티를 가족과 했다. 파티음악준비는 내 전담이었다.</td>
+          <td>
+            <figure>
+              <%= image_tag(("shock.jpg"), :class => 'img-responsive', :alt => 'Image', width: "300", height: '300') %>
+              <figcaption>
+                <h3 class="figure-title">fx <em>'electric shock'</em> <a
+                  href="https://music.naver.com/album/index.nhn?albumId=322732"><i
+                  class="fas fa-headphones-alt"></i></a>
+                </h3>
+
+              </figcaption>
+            </figure>
+          </td>
+          <td>
+            <%= form_for @message, :form_class => 'form-group', :class => 'button' do |f| %>
+
+              <%= f.text_field :message, :id => "message" %>
+              <%= f.submit "등록", :class => "button" %>
+            <% end %>
+            <br>
+            <br>
+            <br>
+            <div class="message">
+              <% @messages.each do |p| %>
+                <p>[익명댓글] <%= p.message %></p>
+              <% end %>
+            </div>
+            <!--            <div class="form-group">-->
+            <!--                            <textarea class="message" name="message" rows="4" placeholder="메시지를 남겨주세요"-->
+            <!--                                      required></textarea>-->
+            <!--            </div>-->
+
+            <!--            <button type="submit" class="btn">보내기</button>-->
+          </td>
+        </tr>
+
+      </table>
+
+    </div>
+  </section>
+
+
+</div>
+
+<footer class="footer">
+
+  <p><strong>Made by Ellie Kang</strong></p>
+
+</footer>
+
+</div>
+
+</body>
+</html>

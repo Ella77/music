@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <% stylesheet_link_tag "music" %>
+
+  <title>Muzify - music station</title>
+
+</head>
+
+<body>
+
+<!-- Content -->
+
+
+<nav class="navbar-default">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <%= link_to developers_new_path do %><%= image_tag(("뮤지파이4.png"), :class => 'logo', :alt => 'Lattes theme logo') %>
+        <!--        <img class="logo" width=250px; height=200px;-->
+        <!--                                  src="img/뮤지파이4.png"-->
+        <!--                                  alt="Lattes theme logo">-->
+      <% end %>
+    </div>
+
+    <div>
+      <ul class="nav">
+
+
+        <li>
+          <%= link_to "Contemporary", index_index_path(:anchor => 'contemporary'), class: 'page-selected' %>
+
+          <!--          <a class="page-scroll" href="index.html#contemporary">Contemporary</a>-->
+        </li>
+
+        <li>
+          <%= link_to "Contact", developers_new_path(:anchor => 'contact'), class: 'page-scroll' %>
+
+        </li>
+        <li>
+          <%= link_to "Memory", new_message_path, class: 'page-scroll' %>
+        </li>
+
+        <li>
+          <%= link_to "About", developers_new_path, class: 'page-scroll' %>
+        </li>
+
+
+      </ul>
+    </div>
+
+  </div>
+
+</nav>
+
+
+<div class="content">
+
+
+  <section id="contemporary">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>실시간 내가 듣고 싶은 노래 Top50</h2>
+            <p>현재 인기있는 노래 중에 당신에 맞는 듣고 싶은 노래를 추천해드릴게요.</p>
+            <p> <%= button_to "업데이트", index_rank_path, {method: 'get', class: "button"} %> </p>
+
+          </div>
+        </div>
+      </div>
+
+
+      <table class="selected" id="Rank">
+        <thead>
+        <tr>
+
+          <th>차트순위
+            <button onclick="sortTD ( 0 )">▲</button>
+            <button onclick="reverseTD ( 0 )">▼</button>
+          </th>
+
+          <th>추천</th>
+
+          <th>추천도
+            <button onclick="sortTD ( 2 )">▲</button>
+            <button onclick="reverseTD ( 2 )">▼</button>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <% @result.each do |p| %>
+            <td><h3><%= p.rank %></h3></td>
+
+            <td>
+              <figure>
+
+                <img src="<%= p.img %>" class="img-thumbnail">
+                <figcaption>
+                  <h3 class="figure-title"><%= p.artist %> <em>'<%= p.title %>'</em> <a
+                    href="<%= p.href %>"><i
+                    class="fas fa-headphones-alt"></i></a></h3>
+                  <p><%= p.album %>...</p>
+
+                </figcaption>
+              </figure>
+            </td>
+
+            <td><p class="score"><%= p.score %>%</p>
+              <p class="figure-description"><%= p.caption %></p></td>
+
+
+            </tr>
+          <% end %>
+          </tbody>
+      </table>
+
+    </div>
+  </section>
+
+
+</div>
+
+
+<footer class="footer">
+
+  <p><strong>Made by Ellie Kang</strong></p>
+
+</footer>
+
+</div>
+
+</body>
+<script type="text/javascript">
+    var myTable = document.getElementById("Rank");
+    var replace = replacement(myTable);
+
+    function sortTD(index) {
+        replace.ascending(index);
+    }
+
+    function reverseTD(index) {
+        replace.descending(index);
+    }
+
+    // 출처 : http://tonks.tistory.com/79
+    // 에러가 나온다면, 여기에 댓글을 남겨주세요.
+
+
+    /* sortingNumber() : 숫자인 실수만으로 되어있을 때, 적용될 함수 */
+
+    function sortingNumber(a, b) {
+
+        if (typeof a == "number" && typeof b == "number") return a - b;
+
+        // 천단위 쉼표와 공백문자만 삭제하기.
+        var a = (a + "").replace(/[,\s\xA0]+/g, "");
+        var b = (b + "").replace(/[,\s\xA0]+/g, "");
+
+        var numA = parseFloat(a) + "";
+        var numB = parseFloat(b) + "";
+
+        if (numA == "NaN" || numB == "NaN" || a != numA || b != numB) return false;
+
+        return parseFloat(a) - parseFloat(b);
+    }
+
+
+    /* changeForSorting() : 문자열 바꾸기. */
+
+    function changeForSorting(first, second) {
+
+        // 문자열의 복사본 만들기.
+        var a = first.toString().replace(/[\s\xA0]+/g, " ");
+        var b = second.toString().replace(/[\s\xA0]+/g, " ");
+
+        var change = {first: a, second: b};
+
+        if (a.search(/\d/) < 0 || b.search(/\d/) < 0 || a.length == 0 || b.length == 0) return change;
+
+        var regExp = /(\d),(\d)/g; // 천단위 쉼표를 찾기 위한 정규식.
+
+        a = a.replace(regExp, "$1" + "$2");
+        b = b.replace(regExp, "$1" + "$2");
+
+        var unit = 0;
+        var aNb = a + " " + b;
+        var numbers = aNb.match(/\d+/g); // 문자열에 들어있는 숫자 찾기
+
+        for (var x = 0; x < numbers.length; x++) {
+
+            var length = numbers[x].length;
+            if (unit < length) unit = length;
+        }
+
+        var addZero = function (string) { // 숫자들의 단위 맞추기
+
+            var match = string.match(/^0+/);
+
+            if (string.length == unit) return (match == null) ? string : match + string;
+
+            var zero = "0";
+
+            for (var x = string.length; x < unit; x++) string = zero + string;
+
+            return (match == null) ? string : match + string;
+        };
+
+        change.first = a.replace(/\d+/g, addZero);
+        change.second = b.replace(/\d+/g, addZero);
+
+        return change;
+    }
+
+
+    /* byLocale() */
+
+    function byLocale() {
+
+        var compare = function (a, b) {
+
+            var sorting = sortingNumber(a, b);
+
+            if (typeof sorting == "number") return sorting;
+
+            var change = changeForSorting(a, b);
+
+            var a = change.first;
+            var b = change.second;
+
+            return a.localeCompare(b);
+        };
+
+        var ascendingOrder = function (a, b) {
+            return compare(a, b);
+        };
+        var descendingOrder = function (a, b) {
+            return compare(b, a);
+        };
+
+        return {ascending: ascendingOrder, descending: descendingOrder};
+    }
+
+
+    /* replacement() */
+
+    function replacement(parent) {
+        var tagName = parent.tagName.toLowerCase();
+        if (tagName == "table") parent = parent.tBodies[0];
+        tagName = parent.tagName.toLowerCase();
+        if (tagName == "tbody") var children = parent.rows;
+        else var children = parent.getElementsByTagName("li");
+
+        var replace = {
+            order: byLocale(),
+            index: false,
+            array: function () {
+                var array = [];
+                for (var x = 0; x < children.length; x++) array[x] = children[x];
+                return array;
+            }(),
+            checkIndex: function (index) {
+                if (index) this.index = parseInt(index, 10);
+                var tagName = parent.tagName.toLowerCase();
+                if (tagName == "tbody" && !index) this.index = 0;
+            },
+            getText: function (child) {
+                if (this.index) child = child.cells[this.index];
+                return getTextByClone(child);
+            },
+            setChildren: function () {
+                var array = this.array;
+                while (parent.hasChildNodes()) parent.removeChild(parent.firstChild);
+                for (var x = 0; x < array.length; x++) parent.appendChild(array[x]);
+            },
+            ascending: function (index) { // 오름차순
+                this.checkIndex(index);
+                var _self = this;
+                var order = this.order;
+                var ascending = function (a, b) {
+                    var a = _self.getText(a);
+                    var b = _self.getText(b);
+                    return order.ascending(a, b);
+                };
+                this.array.sort(ascending);
+                this.setChildren();
+            },
+            descending: function (index) { // 내림차순
+                this.checkIndex(index);
+                var _self = this;
+                var order = this.order;
+                var descending = function (a, b) {
+                    var a = _self.getText(a);
+                    var b = _self.getText(b);
+                    return order.descending(a, b);
+                };
+                this.array.sort(descending);
+                this.setChildren();
+            }
+        };
+        return replace;
+    }
+
+    function getTextByClone(tag) {
+        var clone = tag.cloneNode(true); // 태그의 복사본 만들기.
+        var br = clone.getElementsByTagName("br");
+        while (br[0]) {
+            var blank = document.createTextNode(" ");
+            clone.insertBefore(blank, br[0]);
+            clone.removeChild(br[0]);
+        }
+        var isBlock = function (tag) {
+            var display = "";
+            if (window.getComputedStyle) display = window.getComputedStyle(tag, "")["display"];
+            else display = tag.currentStyle["display"];
+            return (display == "block") ? true : false;
+        };
+        var children = clone.getElementsByTagName("*");
+        for (var x = 0; x < children.length; x++) {
+            var child = children[x];
+            if (!("value" in child) && isBlock(child)) child.innerHTML = child.innerHTML + " ";
+        }
+        var textContent = ("textContent" in clone) ? clone.textContent : clone.innerText;
+        return textContent;
+    }
+</script>
+</html>

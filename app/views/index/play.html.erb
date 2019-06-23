@@ -1,0 +1,25 @@
+<table>
+  <thead>
+  <tr>
+    <td>제목</td>
+    <td>사진</td>
+    <td>순위</td>
+    <td>아티스트</td>
+    <td>앨범</td>
+  </tr>
+  </thead>
+  <tbody>
+  <%@result.each do |p|%>
+    <tr>
+      <td><%= p.title %></td>
+      <td><img src ="<%=p.img%>"></td>
+      <td><%=p.rank%></td>
+      <td><%=p.artist%></td>
+      <td><%=p.album%></td>
+
+    </tr>
+  <%end%>
+  </tbody>
+</table>
+
+<a href = '/index/rank'>크롤링하기</a>

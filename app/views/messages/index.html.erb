@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- bootstrap awesome font 호환 문제로 추가 -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <% stylesheet_link_tag "music" %>
+  <title>Muzify - music station</title>
+
+</head>
+
+<body>
+
+
+<nav class="navbar-default">
+  <div class="container">
+
+    <div class="navbar-brand">
+      <%= link_to index_index_path do %><%= image_tag(("뮤지파이4.png"), :class => 'logo', :alt => 'Lattes theme logo') %>
+        <!--        <img class="logo" width=250px; height=200px;-->
+        <!--                                  src="img/뮤지파이4.png"-->
+        <!--                                  alt="Lattes theme logo">-->
+      <% end %>
+    </div>
+
+    <div>
+      <ul class="nav">
+
+        <li>
+          <%= link_to "Contemporary", index_index_path, class: 'page-scroll' %>
+
+          <!--          <a class="page-scroll" href="index.html#contemporary">Contemporary</a>-->
+        </li>
+
+        <li>
+          <%= link_to "Contact", developers_new_path(:anchor => 'contact'), class: 'page-scroll' %>
+
+        </li>
+        <li>
+          <%= link_to "Memory", personal_index_path(:anchor => 'memory'), class: 'page-selected' %>
+        </li>
+
+        <li>
+          <%= link_to "About", developers_new_path, class: 'page-scroll' %>
+        </li>
+
+
+      </ul>
+    </div>
+
+  </div>
+
+</nav>
+
+<div class="content">
+
+
+  <section id="memory">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>내가 그때 들었던 노래</h2>
+            <p>과거의 추억이 담긴 사진들과 함께 노래를 다시 들어보세요.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <table class="memory">
+        <tr>
+
+          <th>날짜</th>
+          <th>그날의 나</th>
+          <th>노래</th>
+          <th>지금 나의 느낌 달기</th>
+
+        </tr>
+
+        <tr>
+
+          <td><h3>2018.1.1</h3></td>
+          <td>오늘은 남자친구와 싸워서 기분이 우울해서 우울한 노래들만 몰아서 들었다.</td>
+          <td>
+            <figure>
+              <%= image_tag(("miss.jpg"), :class => 'img-responsive', :alt => 'Image', width: "300", height: '300') %>
+              <figcaption>
+                <h3 class="figure-title">길구봉구 <em>'이별'</em> <a
+                  href="https://music.naver.com/album/index.nhn?albumId=2188495"><i
+                  class="fas fa-headphones-alt"></i></a>
+                </h3>
+              </figcaption>
+            </figure>
+          </td>
+          <td>
+            <% @messages.each do |p| %>
+              <p><%= p.message %>...</p>
+            <% end %>
+            <!--            <div class="form-group">-->
+            <!--                            <textarea class="message" name="message" rows="4" placeholder="메시지를 남겨주세요"-->
+            <!--                                      required></textarea>-->
+            <!--            </div>-->
+
+            <!--            <button type="submit" class="btn">보내기</button>-->
+          </td>
+        </tr>
+
+        <tr>
+
+          <td><h3>2018.12.25</h3></td>
+          <td>오늘은 크리스마스 파티를 가족과 했다. 파티음악준비는 내 전담이었다.</td>
+          <td>
+            <figure>
+              <%= image_tag(("shock.jpg"), :class => 'img-responsive', :alt => 'Image', width: "300", height: '300') %>
+              <figcaption>
+                <h3 class="figure-title">fx <em>'electric shock'</em> <a
+                  href="https://music.naver.com/album/index.nhn?albumId=322732"><i
+                  class="fas fa-headphones-alt"></i></a>
+                </h3>
+
+              </figcaption>
+            </figure>
+          </td>
+          <td>
+            <div class="form-group">
+                            <textarea class="message" name="message" rows="4" placeholder="메시지를 남겨주세요"
+                                      required></textarea>
+            </div>
+
+            <button type="submit" class="btn">보내기</button>
+          </td>
+        </tr>
+
+
+        </tr>
+      </table>
+
+    </div>
+  </section>
+
+
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="section-title">
+            <h2>그 날의 나를 기록하기</h2>
+            <p>오늘의 감성에 맞는 음악을 추천받은 당신, 당신에게 메시지를 남겨주세요.<br>서비스 건의사항도 받아요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <h3>Contact</h3>
+          <p>Ibk communication center 302, Seoul National University</p>
+          <p><i class="fa fa-phone"></i> +10 2651 3241</p>
+          <p><i class="fa fa-envelope"></i>ksjbang@gmail.com</p>
+        </div>
+        <div class="col-md-3">
+          <h3>Update</h3>
+
+          <p><i class="fa fa-check"></i> <span class="day">실시간</span></p>
+          <p><i class="fa fa-check"></i> <span class="day">엠넷 차트 기준</span></p>
+
+        </div>
+        <div class="col-md-6">
+
+
+          <form action="personal.html" method="post">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="이름 *" id="name" required=""
+                  >
+
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="email" class="form-control" placeholder="답장받을 이메일 *" id="email"
+                         required=""
+                  >
+
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                                    <textarea class="form-control" placeholder="메시지 *" id="message" required=""
+                                    ></textarea>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-lg-12 text-center">
+
+                <button type="submit" class="btn">보내기</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+
+  <p><strong>Made by Ellie Kang</strong></p>
+
+</footer>
+
+</div>
+
+</body>
+</html>
